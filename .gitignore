@@ -1,5 +1,7 @@
 # ocamlbuid
 _build/*
+*.docdir
+
 
 # emacs
 *~
