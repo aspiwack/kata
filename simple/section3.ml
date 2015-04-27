@@ -3,7 +3,7 @@
 (** Described in Section 3 of
     {{:http://epubs.siam.org/doi/abs/10.1137/S0097539798339430}
     Kaplan, Okasaki & Tarjan (2000)} (KOT), this data-structure
-    implements the deque operation (but not concatenation) in {i
+    implements the deque operations (but not concatenation) in {i
     amortised} constant time, using recursive slowdown and
     lazyness.
 
