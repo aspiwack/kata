@@ -5,7 +5,14 @@
     Kaplan, Okasaki & Tarjan (2000)} (KOT), this data-structure
     implements the deque operation (but not concatenation) in {i
     amortised} constant time, using recursive slowdown and
-    lazyness. *)
+    lazyness.
+
+    Judging from the letter of the article, KOT does not seem to
+    indend use of lazyness in this datastructure, but explicit
+    memoisation. Using lazyness is presumably equivalent, and yields a
+    simpler implementation. Since simplicity is the motto of KOT,
+    lazyness is used here. *)
+
 
 (** Prefixes are taken to be vectors of size at most 3, which are seen
     as bounded-size deques. Note that because of bounded size, deque
@@ -120,8 +127,8 @@ type 'a t =
     is, in fact, shorter and easier to read this way. *)
 
 (** The type annotation on the [push] function is necessary because
-    the recursion is non-uniform: the recursive call to [push] inside
-    is on a deque of type [('a*'a) t]. *)
+    the recursion is non-uniform: the recursive call to [push] is on a
+    deque of type [('a*'a) t]. *)
 let rec push : 'a. 'a -> 'a t -> 'a t = fun x d ->
   match d with
   | Q (Prefix.Three(y,z,w),c,s) ->
@@ -137,7 +144,7 @@ let rec push : 'a. 'a -> 'a t -> 'a t = fun x d ->
          Lazy.from_val Empty ,
          Suffix.Zero )
 
-      
+
 (** {6 Pop} *)
 
 (** {!pop} is a partial function (empty queues cannot be
@@ -185,8 +192,8 @@ let rec inject : 'a. 'a t -> 'a -> 'a t = fun d x ->
          Lazy.from_val Empty ,
          Suffix.One x )
 
-      
-(** {6 Pop} *)
+
+(** {6 Eject} *)
 
 exception CannotEject
 
@@ -206,4 +213,4 @@ let rec eject : 'a. 'a t -> ('a t * 'a) = function
   | Q(p,c,s) ->
       let (s',x) = Suffix.eject s in
       Q( p , c , s' ) , x
-  | Empty -> raise CannotPop
+  | Empty -> raise CannotEject
