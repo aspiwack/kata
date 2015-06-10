@@ -13,10 +13,10 @@ implementation are not provided. This repository is an attempt at
 providing reference implementation for the data structure these
 articles introduce.
 
-### Licence ###
+### License ###
 
 The files in this repository are distributed under the Creative
-Commons licence [cc by 4.0](http://creativecommons.org/licenses/by/4.0/).
+Commons license [cc by 4.0](http://creativecommons.org/licenses/by/4.0/).
 
 
 Coding style
@@ -27,7 +27,7 @@ implementation does not aim for maximal efficiency. The code is amply
 documented and the reader is encouraged to signal any piece of unclear
 documentation so that the quality of the presentation can be improved.
 
-As much as possible, invariants are enforced by typing. This both act
+As much as possible, invariants are enforced by typing. This both acts
 as a form of documentation and as an invitation to play with the code
 to get a deeper understanding of the data structures.
 
@@ -41,8 +41,8 @@ articles are concerned with the so-called deque operations: `push`,
    returns a pair of the first element and the rest of the list)
 - `inject` adds an element at the back of a list
 - `eject` removes the element at the back of a list (like `pop`, it
-  returns a pair of the rest of the list together with the ejected
-  element).
+   returns a pair of the rest of the list together with the ejected
+   element).
 
 The language chosen for this demonstration is the
 [Ocaml](http://ocaml.org/) language. A flexible functional language in
