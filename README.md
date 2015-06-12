@@ -6,7 +6,7 @@ functional and immutable list-like data structures.
 
 - [*Persistent lists with catenation via recursive slow-down*](http://portal.acm.org/citation.cfm?doid=225058.225090), Kaplan & Tarjan (1995)
 - [*Purely functional, real-time deques with catenation*](http://portal.acm.org/citation.cfm?doid=324133.324139), Kaplan & Tarjan (1999)
-- [*Simple Confluently Persistent Catenable Lists*], Kaplan, Okasaki & Tarjan (2000)
+- [*Simple Confluently Persistent Catenable Lists*](http://epubs.siam.org/doi/abs/10.1137/S0097539798339430), Kaplan, Okasaki & Tarjan (2000)
 
 These articles are notoriously hard to read, and supporting
 implementation are not provided. This repository is an attempt at
