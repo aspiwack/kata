@@ -130,7 +130,10 @@ and 'a t = ('a,wf) t'
     [gp] function which is supposed to turn the prefix green is
     inlined. When splitting a full prefix or suffix, there is a unique
     choice of splitting which produces no red prefix or suffix, taking
-    this splitting determines the [push] process. *)
+    this splitting determines the [push] process.
+
+    The [push] operation can be used to "repair" a queue with a prefix
+    of length 1. It always produces a well-formed queue. *)
 
 let rec push : type a w. a -> (a,w) t' -> a t = fun x d ->
   match d with
@@ -153,15 +156,28 @@ let rec push : type a w. a -> (a,w) t' -> a t = fun x d ->
 
 (** {6 Inject} *)
 
-(** The [inject] operation is similar to [push]. Note that in one
-    occurrence, when splitting a suffix, a red (size two) prefix is
-    created. *)
+(** The [inject] operation is similar to [push].
+
+    Note that in one occurrence, when splitting a suffix, a red (size
+    two) prefix is created. It would probably be more efficient to
+    make a prefix of length 3 and a suffix of length 1, since this
+    data structure does not support [eject]: it would keep with the
+    spirit of not creating unnecessary red things. However, the
+    definition in the article with an indirection through a function
+    [gs] which turns a queue with a red suffix into a queue with a
+    green suffix forces the author to produce an intermediary suffix
+    of length 1, and ultimately a suffix of length 2. *)
 let rec inject : 'a. 'a t -> 'a -> 'a t = fun d x ->
   match d with
   | Q( pre , c , Suffix.Three(y,z,w) ) ->
       Q ( pre ,
           lazy ( inject (Lazy.force c) (P (Prefix.Two(y,z),Empty)) ) ,
           Suffix.Two(w,x) )
+      (** Alternative to the above without red:
+     [Q ( pre ,
+          lazy ( inject (Lazy.force c) (P (Prefix.Three(y,z,w),Empty)) ) ,
+          Suffix.One(x) )]
+      *)
   | Q( pre , c , suf ) ->
       Q ( pre ,
           c ,
